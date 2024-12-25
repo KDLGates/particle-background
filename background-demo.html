@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Background</title>
+
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <script type="module">
+        import { ParticleBackground } from './particleBackground.js';
+
+        try {
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) {
+                throw new Error('Canvas element not found');
+            }
+
+            // Set canvas size to match window
+            const resizeCanvas = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Initialize background
+            const background = new ParticleBackground('bg-canvas');
+            background.init(100);
+            background.start();
+        } catch (error) {
+            console.error('Failed to initialize background:', error);
+        }
+    </script>
+</body>
+
+</html>
